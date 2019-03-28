@@ -7,7 +7,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.agenda.modelo.Pessoa;
+
 public class FormularioActivity extends AppCompatActivity {
+    private FormularioHelper helper;
 
     //TODO: Salvar dados preenchidos independente de mudança de orientação da tela.
 
@@ -15,6 +18,7 @@ public class FormularioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+        helper = new FormularioHelper(this);
 
     }
 
@@ -35,6 +39,10 @@ public class FormularioActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_formulario:
                 Toast.makeText(FormularioActivity.this,"Botão clicado!", Toast.LENGTH_SHORT).show();
+
+                //TODO: SALVAR CADASTRO
+                Pessoa pessoa = helper.obterPessoa();
+
                 finish();
                 break;
 
