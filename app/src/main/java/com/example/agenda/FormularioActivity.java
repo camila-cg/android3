@@ -1,11 +1,10 @@
 package com.example.agenda;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 public class FormularioActivity extends AppCompatActivity {
@@ -17,23 +16,30 @@ public class FormularioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
-        Button btSalvar = findViewById(R.id.btSalvar);
-
-        btSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FormularioActivity.this,"Botão clicado!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
     }
 
-//    Colocando o botão de salvar formulário na action bar
+    //Colocando o botão de salvar formulário na action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_formulario, menu);
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    //Colocando ação no botão do menu da action bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //Restringindo o finish() apenas quando a opção do menu clicado for para salvar formulário
+        switch (item.getItemId()){
+            case R.id.menu_formulario:
+                Toast.makeText(FormularioActivity.this,"Botão clicado!", Toast.LENGTH_SHORT).show();
+                finish();
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
