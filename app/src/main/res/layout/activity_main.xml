@@ -19,6 +19,11 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/fundo"/>
+        android:background="@drawable/fundo"
+        android:elevation="6dp"
+        android:stateListAnimator="@null"/>
+
+
+    <!--TODO: VER DOC stateListAnimator https://stackoverflow.com/questions/26473244/android-api-21-changes-my-custom-button-background -->
 
 </RelativeLayout>
