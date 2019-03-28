@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String[] pessoas = {"01", "02", "06"};
+        String[] pessoas = {"01", "02", "06", "01", "02", "06", "01", "02", "06", "01", "02", "06"};
         ListView listaPessoas = findViewById(R.id.lista_pessoas); //TODO: Adicionar ButterKnife
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pessoas);
         listaPessoas.setAdapter(adapter);
