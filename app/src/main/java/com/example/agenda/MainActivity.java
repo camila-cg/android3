@@ -14,6 +14,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TODO: ESTABALECER CONEXÃO
+        //TODO: BUSCAR PESSOAS
+        //TODO: POPULAR ARRAY DE STRINGS
+        //TODO: FECHAR CONEXÃO
+
+
         String[] pessoas = {"01", "02", "06", "01", "02", "06", "01", "02", "06", "01", "02", "06"};
         ListView listaPessoas = findViewById(R.id.lista_pessoas); //TODO: Adicionar ButterKnife
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pessoas);

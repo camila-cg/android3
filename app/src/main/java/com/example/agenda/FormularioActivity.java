@@ -40,8 +40,12 @@ public class FormularioActivity extends AppCompatActivity {
             case R.id.menu_formulario:
                 Toast.makeText(FormularioActivity.this,"Botão clicado!", Toast.LENGTH_SHORT).show();
 
-                //TODO: SALVAR CADASTRO
                 Pessoa pessoa = helper.obterPessoa();
+                //TODO: ESTABALECER CONEXÃO
+                //TODO: SALVAR PESSOA
+                //TODO: FECHAR CONEXÃO
+
+                //Toast.makeText(FormularioActivity.this,"Botão" + pessoa.getNome() + "clicado!", Toast.LENGTH_SHORT).show();
 
                 finish();
                 break;
