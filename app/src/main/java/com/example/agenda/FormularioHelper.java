@@ -29,6 +29,6 @@ public class FormularioHelper {
         pessoa.setSite(etSite.getText().toString());
         pessoa.setNota(Double.valueOf(rbNota.getProgress()));
 
-        return null;
+        return pessoa;
     }
 }
