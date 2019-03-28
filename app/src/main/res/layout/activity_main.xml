@@ -10,9 +10,10 @@
         android:layout_height="wrap_content" />
 
     <Button android:id="@+id/btAdicionarCadastro"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cadastrar"
-        android:layout_below="@+id/lista_pessoas"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>
