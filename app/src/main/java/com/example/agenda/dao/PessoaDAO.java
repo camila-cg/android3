@@ -50,8 +50,15 @@ public class PessoaDAO extends SQLiteOpenHelper {
     }
 
 
-    public void cadastrarPessoa(Pessoa pessoa) {
+    public void incluir(Pessoa pessoa) {
         SQLiteDatabase db = getWritableDatabase();
+        ContentValues dados = obterDadosPessoa(pessoa);
+
+        db.insert("Pessoa", null, dados);
+
+    }
+
+    private ContentValues obterDadosPessoa(Pessoa pessoa) {
         ContentValues dados = new ContentValues(); //funciona como um map do java (chave e valor)
 
         dados.put("nome", pessoa.getNome());
@@ -59,9 +66,7 @@ public class PessoaDAO extends SQLiteOpenHelper {
         dados.put("telefone", pessoa.getTelefone());
         dados.put("site", pessoa.getSite());
         dados.put("nota", pessoa.getNota());
-
-        db.insert("Pessoa", null, dados);
-
+        return dados;
     }
 
     /** Efetua a busca por Pessoas no banco.
@@ -69,7 +74,7 @@ public class PessoaDAO extends SQLiteOpenHelper {
      * O cursor aponta para um linha em branco exatamente acima dos resultados, por isso é importante usar o moveToNext() para mover o cursor e validar se há mais registros.
      * @return lista de pessoas cadastradas.
      */
-    public List<Pessoa> pesquisarPessoas() {
+    public List<Pessoa> pesquisar() {
         String sql = "SELECT * FROM Pessoa;";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -91,9 +96,18 @@ public class PessoaDAO extends SQLiteOpenHelper {
         return pessoas;
     }
 
-    public void removerPessoa(Pessoa pessoa) {
-        SQLiteDatabase db = getReadableDatabase();
-        String[] params = {pessoa.getId().toString()};
-        db.delete("Pessoa","id= ?" + pessoa.getId(), params);
+    public void remover(Pessoa pessoa) {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] params = { pessoa.getId().toString()};
+
+        db.delete("Pessoa","id = ?", params);
+    }
+
+    public void editar(Pessoa pessoa) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues dados = obterDadosPessoa(pessoa);
+        String[] params = { pessoa.getId().toString()};
+
+        db.update("Pessoa", dados, "id = ?", params );
     }
 }
