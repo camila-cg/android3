@@ -33,6 +33,7 @@ public class PessoaDAO extends SQLiteOpenHelper {
         String sql = "CREATE TABLE Pessoa (id INTEGER PRIMARY KEY," +
                 "nome TEXT NOT NULL," +
                 "endereco TEXT," +
+                "telefone TEXT," +
                 "site TEXT," +
                 "nota REAL);";
 
@@ -53,11 +54,11 @@ public class PessoaDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues dados = new ContentValues(); //funciona como um map do java (chave e valor)
 
-        dados.put("nome",pessoa.getNome());
-        dados.put("endereco",pessoa.getEndereco());
-        dados.put("telefone",pessoa.getTelefone());
-        dados.put("site",pessoa.getSite());
-        dados.put("nota",pessoa.getNota());
+        dados.put("nome", pessoa.getNome());
+        dados.put("endereco", pessoa.getEndereco());
+        dados.put("telefone", pessoa.getTelefone());
+        dados.put("site", pessoa.getSite());
+        dados.put("nota", pessoa.getNota());
 
         db.insert("Pessoa", null, dados);
 

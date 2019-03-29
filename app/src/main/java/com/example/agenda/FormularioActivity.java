@@ -41,9 +41,9 @@ public class FormularioActivity extends AppCompatActivity {
             case R.id.menu_formulario:
                 Pessoa pessoa = helper.obterPessoa();
                 PessoaDAO dao = new PessoaDAO(this);
-                dao.cadastraPessoa(pessoa);
+                dao.cadastrarPessoa(pessoa);
                 dao.close();
-                Toast.makeText(FormularioActivity.this,"Botão" + pessoa.getNome() + "clicado!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormularioActivity.this,"Pessoa " + pessoa.getNome() + " cadastrada!", Toast.LENGTH_SHORT).show();
 
                 finish();
                 break;

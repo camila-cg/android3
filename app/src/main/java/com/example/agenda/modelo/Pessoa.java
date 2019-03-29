@@ -56,4 +56,9 @@ public class Pessoa {
     public void setNota(Double nota) {
         this.nota = nota;
     }
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getNome();
+    }
 }

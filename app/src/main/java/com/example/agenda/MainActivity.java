@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.agenda.dao.PessoaDAO;
+import com.example.agenda.modelo.Pessoa;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,15 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO: ESTABALECER CONEXÃO
-        //TODO: BUSCAR PESSOAS
-        //TODO: POPULAR ARRAY DE STRINGS
-        //TODO: FECHAR CONEXÃO
+        PessoaDAO dao = new PessoaDAO(this);
+        List<Pessoa> pessoas = dao.pesquisarPessoas();
+        dao.close();
 
-
-        String[] pessoas = {"01", "02", "06", "01", "02", "06", "01", "02", "06", "01", "02", "06"};
         ListView listaPessoas = findViewById(R.id.lista_pessoas); //TODO: Adicionar ButterKnife
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pessoas);
+        ArrayAdapter<Pessoa> adapter = new ArrayAdapter<Pessoa>(this, android.R.layout.simple_list_item_1, pessoas);
         listaPessoas.setAdapter(adapter);
 
         Button btCadastrar = findViewById(R.id.btAdicionarCadastro);
