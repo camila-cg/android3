@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.agenda.dao.PessoaDAO;
 import com.example.agenda.modelo.Pessoa;
@@ -32,6 +33,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listaPessoas = findViewById(R.id.lista_pessoas); //TODO: Adicionar ButterKnife
 
+        listaPessoas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pessoa pessoa = (Pessoa) listaPessoas.getItemAtPosition(position);
+                Toast.makeText(MainActivity.this,"Pessoa " + pessoa.getNome(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, FormularioActivity.class);
+                intent.putExtra("pessoa", pessoa); // Só é possível enviar objetos quando a classe de domínio é serializável.
+                startActivity(intent);
+
+            }
+        });
+
+/*        listaPessoas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> lista, View item, int position, long id) {
+                Toast.makeText(MainActivity.this,"Clique longo " , Toast.LENGTH_SHORT).show();
+                return false; //retornando true o tratamento do clique longo termina neste método. Caso seja retornado false, o evento fica disponível para outros métodos.
+            }
+
+        });*/
+
         Button btCadastrar = findViewById(R.id.btAdicionarCadastro);
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Registrando o componente de tela que possuirá um menu de contexto
         registerForContextMenu(listaPessoas);
-
     }
 
     @Override
@@ -57,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 Pessoa pessoa = (Pessoa) listaPessoas.getItemAtPosition(info.position);
 
                 PessoaDAO dao = new PessoaDAO(MainActivity.this);
-                dao.removerPessoa(pessoa);
+                dao.remover(pessoa);
                 dao.close();
 
                 carregarLista();
@@ -78,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void carregarLista() {
         PessoaDAO dao = new PessoaDAO(this);
-        List<Pessoa> pessoas = dao.pesquisarPessoas();
+        List<Pessoa> pessoas = dao.pesquisar();
         dao.close();
 
         ArrayAdapter<Pessoa> adapter = new ArrayAdapter<Pessoa>(this, android.R.layout.simple_list_item_1, pessoas);
