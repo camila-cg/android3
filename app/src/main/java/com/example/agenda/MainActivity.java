@@ -20,14 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PessoaDAO dao = new PessoaDAO(this);
-        List<Pessoa> pessoas = dao.pesquisarPessoas();
-        dao.close();
-
-        ListView listaPessoas = findViewById(R.id.lista_pessoas); //TODO: Adicionar ButterKnife
-        ArrayAdapter<Pessoa> adapter = new ArrayAdapter<Pessoa>(this, android.R.layout.simple_list_item_1, pessoas);
-        listaPessoas.setAdapter(adapter);
-
         Button btCadastrar = findViewById(R.id.btAdicionarCadastro);
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,4 +30,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarLista();
+    }
+
+    private void carregarLista() {
+        PessoaDAO dao = new PessoaDAO(this);
+        List<Pessoa> pessoas = dao.pesquisarPessoas();
+        dao.close();
+
+        ListView listaPessoas = findViewById(R.id.lista_pessoas); //TODO: Adicionar ButterKnife
+        ArrayAdapter<Pessoa> adapter = new ArrayAdapter<Pessoa>(this, android.R.layout.simple_list_item_1, pessoas);
+        listaPessoas.setAdapter(adapter);
+    }
+
+
 }
