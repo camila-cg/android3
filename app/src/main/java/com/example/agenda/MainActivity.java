@@ -1,6 +1,7 @@
 package com.example.agenda;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -70,14 +71,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(final ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Pessoa pessoa = (Pessoa) listaPessoas.getItemAtPosition(info.position);
+
+        String site = pessoa.getSite();
+        if(!site.startsWith("https://")){
+            site = "http://" + site;
+        }
+
+        MenuItem itemSite = menu.add("Visitar site");
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+        intentSite.setData(Uri.parse(site));
+
+        itemSite.setIntent(intentSite);
+
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) { //Atenção: O item do menu é o deletar, e não o objeto da lista
-
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Pessoa pessoa = (Pessoa) listaPessoas.getItemAtPosition(info.position);
-
                 PessoaDAO dao = new PessoaDAO(MainActivity.this);
                 dao.remover(pessoa);
                 dao.close();
@@ -86,6 +97,16 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });//IDE n traz este ponto e vírgula na geração automática de código
+
+
+/*        itemSite.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(intentSite);
+                return false;
+            }
+        });*/
+
     }
 
     /*
