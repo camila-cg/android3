@@ -1,8 +1,11 @@
 package com.example.agenda.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.agenda.modelo.Pessoa;
 
 public class PessoaDAO extends SQLiteOpenHelper {
 
@@ -42,4 +45,17 @@ public class PessoaDAO extends SQLiteOpenHelper {
     }
 
 
+    public void cadastraPessoa(Pessoa pessoa) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues dados = new ContentValues(); //funciona como um map do java (chave e valor)
+
+        dados.put("nome",pessoa.getNome());
+        dados.put("endereco",pessoa.getEndereco());
+        dados.put("telefone",pessoa.getTelefone());
+        dados.put("site",pessoa.getSite());
+        dados.put("nota",pessoa.getNota());
+
+        db.insert("Pessoa", null, dados);
+
+    }
 }

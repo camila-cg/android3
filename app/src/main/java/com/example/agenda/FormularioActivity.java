@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.agenda.dao.PessoaDAO;
 import com.example.agenda.modelo.Pessoa;
 
 public class FormularioActivity extends AppCompatActivity {
@@ -38,14 +39,11 @@ public class FormularioActivity extends AppCompatActivity {
         //Restringindo o finish() apenas quando a opção do menu clicado for para salvar formulário
         switch (item.getItemId()){
             case R.id.menu_formulario:
-                Toast.makeText(FormularioActivity.this,"Botão clicado!", Toast.LENGTH_SHORT).show();
-
                 Pessoa pessoa = helper.obterPessoa();
-                //TODO: ESTABALECER CONEXÃO
-                //TODO: SALVAR PESSOA
-                //TODO: FECHAR CONEXÃO
-
-                //Toast.makeText(FormularioActivity.this,"Botão" + pessoa.getNome() + "clicado!", Toast.LENGTH_SHORT).show();
+                PessoaDAO dao = new PessoaDAO(this);
+                dao.cadastraPessoa(pessoa);
+                dao.close();
+                Toast.makeText(FormularioActivity.this,"Botão" + pessoa.getNome() + "clicado!", Toast.LENGTH_SHORT).show();
 
                 finish();
                 break;
