@@ -1,6 +1,8 @@
 package com.example.agenda.modelo;
 
-public class Pessoa {
+import java.io.Serializable;
+
+public class Pessoa implements Serializable {
     private Long id;
     private String nome ;
     private String endereco ;
