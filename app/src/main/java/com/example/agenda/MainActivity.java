@@ -79,10 +79,9 @@ public class MainActivity extends AppCompatActivity {
         intentSMS.setData(Uri.parse("sms:" + pessoa.getTelefone()));
         itemSMS.setIntent(intentSMS);
 
-        //TODO: VERIFICAR PQ N ESTÁ FUNCIONANDO
         MenuItem itemMapa = menu.add("Visualizar no Mapa");
         Intent intentMapa = new Intent(Intent.ACTION_VIEW);
-        intentMapa.setData(Uri.parse("geo:0,0 q=" + pessoa.getEndereco()));
+        intentMapa.setData(Uri.parse("geo:0,0?q=" + pessoa.getEndereco()));
         itemMapa.setIntent(intentMapa);
 
 
