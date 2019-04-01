@@ -1,8 +1,11 @@
 package com.example.agenda;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -84,6 +87,21 @@ public class MainActivity extends AppCompatActivity {
         intentMapa.setData(Uri.parse("geo:0,0?q=" + pessoa.getEndereco()));
         itemMapa.setIntent(intentMapa);
 
+        MenuItem itemLigar = menu.add("Ligar");
+        itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CALL_PHONE}, 123);
+
+                }else{
+                    Intent intentLigar = new Intent(Intent.ACTION_CALL);
+                    intentLigar.setData(Uri.parse("tel:" + pessoa.getTelefone()));
+                    startActivity(intentLigar);
+                }
+                return false;
+            }
+        });
 
         MenuItem itemSite = menu.add("Visitar site");
         Intent intentSite = new Intent(Intent.ACTION_VIEW);
@@ -107,10 +125,11 @@ public class MainActivity extends AppCompatActivity {
                 carregarLista();
                 return false;
             }
-        });//IDE n traz este ponto e vírgula na geração automática de código
+        });
 
 
-/*        itemSite.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+/*      TODO: VALIDAR PQ ISSO FOI MANTIDO
+        itemSite.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 startActivity(intentSite);
@@ -129,6 +148,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
     */
+
+    //TODO: Implementar ação de ligar logo após a permissão ser concedida, #1
+/*    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 123){ //permissão de ligar concedida
+            //fazer ação de ligar
+        }
+    }*/
 
     private void carregarLista() {
         PessoaDAO dao = new PessoaDAO(this);
