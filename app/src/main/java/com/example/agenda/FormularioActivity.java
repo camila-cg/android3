@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +17,6 @@ import com.example.agenda.dao.PessoaDAO;
 import com.example.agenda.modelo.Pessoa;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class FormularioActivity extends AppCompatActivity {
     private FormularioHelper helper;
@@ -42,14 +42,11 @@ public class FormularioActivity extends AppCompatActivity {
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //String caminhoFoto = getExternalFilesDirs(null) + "/foto.jpg"; //passamos null pq n queremos uma pasta específica, mas sim a pasta raíz da aplicação.
-                String caminhoFoto = Arrays.toString(getExternalFilesDirs(null)) + "/" + System.currentTimeMillis() + ".jpg";
+                String caminhoFoto =  getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
                 File arquivoFoto = new File(caminhoFoto);
-                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(arquivoFoto));
-
-                //TODO: ESTÁ CRASHANDO AO TENTAR ABRIR A CAMERA -> aula 2 - vídeo 2
+                Uri fotoUri = FileProvider.getUriForFile( getApplicationContext(), getApplicationContext().getPackageName() + ".provider", arquivoFoto);
+                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, fotoUri);
                 startActivity(intentCamera);
 
             }
