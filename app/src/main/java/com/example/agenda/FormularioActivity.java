@@ -2,8 +2,6 @@ package com.example.agenda;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.agenda.dao.PessoaDAO;
@@ -103,13 +100,7 @@ public class FormularioActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == Activity.RESULT_OK ){
             if(requestCode == CODIGO_CAMERA){
-                ImageView foto = findViewById(R.id.iv_foto);
-                Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
-                Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
-                foto.setImageBitmap(bitmapReduzido);
-
-                //TODO: Melhorar exibição de foto, está ficando "esticada"
-                foto.setScaleType(ImageView.ScaleType.FIT_XY);
+                helper.carregarImagem(caminhoFoto);
             }
         }
 

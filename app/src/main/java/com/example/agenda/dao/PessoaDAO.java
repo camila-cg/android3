@@ -19,8 +19,7 @@ public class PessoaDAO extends SQLiteOpenHelper {
      */
     public PessoaDAO( Context context) {
         //TODO: PESQUISAR O PAPEL DA FACTORY NA CONEXÃO COM BANCO
-        //TODO: PESQUISAR O PAPEL DA VERSÃO NA CONEXÃO COM BANCO
-        super(context, "AgendaDB", null, 1);
+        super(context, "AgendaDB", null, 2);
     }
 
     /**
@@ -35,6 +34,7 @@ public class PessoaDAO extends SQLiteOpenHelper {
                 "endereco TEXT," +
                 "telefone TEXT," +
                 "site TEXT," +
+                "caminhoFoto TEXT," +
                 "nota REAL);";
 
         db.execSQL(sql);
@@ -43,10 +43,13 @@ public class PessoaDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO: FAZER VERIFICAÇÃO DE ATUALIZAÇÃO DO BANCO --> MÉTODO ABAIXO É APENAS UM PALIATIVO!!!
-        String sql = "DROP TABLE IF EXISTS Pessoa;";
-        db.execSQL(sql);
-        onCreate(db);
+        //TODO: VALIDAR SE É A MELHOR FORMA PARA ATUALIZAR BANCO DE USUÁRIOS --> MIGRATIONS
+        String sql = "";
+        switch (oldVersion){
+            case 1: sql = "ALTER TABLE Pessoa ADD COLUMN caminhoFoto TEXT";
+                    db.execSQL(sql);
+        }
+
     }
 
 
@@ -66,6 +69,7 @@ public class PessoaDAO extends SQLiteOpenHelper {
         dados.put("telefone", pessoa.getTelefone());
         dados.put("site", pessoa.getSite());
         dados.put("nota", pessoa.getNota());
+        dados.put("caminhoFoto", pessoa.getCaminhoFoto());
         return dados;
     }
 
@@ -88,6 +92,7 @@ public class PessoaDAO extends SQLiteOpenHelper {
             pessoa.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
             pessoa.setSite(cursor.getString(cursor.getColumnIndex("site")));
             pessoa.setNota(cursor.getDouble(cursor.getColumnIndex("nota")));
+            pessoa.setCaminhoFoto(cursor.getString(cursor.getColumnIndex("caminhoFoto")));
 
             pessoas.add(pessoa);
         }
