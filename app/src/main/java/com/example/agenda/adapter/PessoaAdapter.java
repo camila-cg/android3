@@ -40,12 +40,37 @@ public class PessoaAdapter extends BaseAdapter {
         return pessoas.get(position).getId();
     }
 
+    /**
+     *
+     * @param position posição da view.
+     * @param convertView
+     * @param parent indica qual é o componente "pai" da nossa view.
+     * @return
+     */
+    //TODO: javadoc
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Pessoa pessoa = pessoas.get(position);
 
+        View view = convertView;
         LayoutInflater inflater = LayoutInflater.from(contexto);
-        View view = inflater.inflate(R.layout.list_item, null);
+
+        if(view == null){
+            //TODO: VERSÃO ESTÁ DESATUALIZADA. Se eu altero a altura do layout do list_item, mesmo passando o  parent ao invés de null ele não renderiza esta alteração.
+            view = inflater.inflate(R.layout.list_item, null);
+            //view = inflater.inflate(R.layout.list_item, null, false);
+        }
+
+        /**
+         * View view = inflater.inflate(R.layout.list_item, parent);
+         * Não podemos passar o parent coomo segundo parâmetro., pq o inflate tentará inflar o xml e contruir o item, em seguida, irá criar a view e adicioná-la no parent.
+         * O problema estará quando devolvermos a view. Como a lista pediu para colocarmos a view dentro dela, ela pegará o resultado e tentará reinseri-la novamente.
+         * Quando tentamos colocar dois elementos exatamente iguais dentro de um componente do Android, iremos receber uma Exception.
+         *
+         * View view = inflater.inflate(R.layout.list_item, parent, false);
+         * Usaremos o parent como referência, mas não iremos colocar a view na lista. Então, só quando retornarmos a view ela será inserida na lista.
+         */
+
 
         TextView tvNome = view.findViewById(R.id.tvNome);
         tvNome.setText(pessoa.getNome());
