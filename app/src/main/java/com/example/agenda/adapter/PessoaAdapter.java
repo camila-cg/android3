@@ -1,11 +1,16 @@
 package com.example.agenda.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.agenda.R;
 import com.example.agenda.modelo.Pessoa;
 
 import java.util.List;
@@ -37,9 +42,28 @@ public class PessoaAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView view = new TextView(contexto);
         Pessoa pessoa = pessoas.get(position);
-        view.setText(pessoa.toString());
+
+        LayoutInflater inflater = LayoutInflater.from(contexto);
+        View view = inflater.inflate(R.layout.list_item, null);
+
+        TextView tvNome = view.findViewById(R.id.tvNome);
+        tvNome.setText(pessoa.getNome());
+
+        TextView tvTel = view.findViewById(R.id.tvTel);
+        tvTel.setText(pessoa.getTelefone());
+
+        ImageView ivFoto = view.findViewById(R.id.ivFoto);
+        String caminhoFoto = pessoa.getCaminhoFoto();
+
+        if(caminhoFoto != null){
+            Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            ivFoto.setImageBitmap(bitmapReduzido);
+            ivFoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        }
+
         return view;
     }
 }
