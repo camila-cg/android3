@@ -11,11 +11,10 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.agenda.adapter.PessoaAdapter;
 import com.example.agenda.dao.PessoaDAO;
 import com.example.agenda.modelo.Pessoa;
 
@@ -41,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pessoa pessoa = (Pessoa) listaPessoas.getItemAtPosition(position);
-                Toast.makeText(MainActivity.this,"Pessoa " + pessoa.getNome(), Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(MainActivity.this, FormularioActivity.class);
                 intent.putExtra("pessoa", pessoa); // Só é possível enviar objetos quando a classe de domínio é serializável.
                 startActivity(intent);
@@ -162,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
         PessoaDAO dao = new PessoaDAO(this);
         List<Pessoa> pessoas = dao.pesquisar();
         dao.close();
-
-        ArrayAdapter<Pessoa> adapter = new ArrayAdapter<Pessoa>(this, android.R.layout.simple_list_item_1, pessoas);
+        PessoaAdapter adapter = new PessoaAdapter(this, pessoas);
         listaPessoas.setAdapter(adapter);
+
     }
 }
