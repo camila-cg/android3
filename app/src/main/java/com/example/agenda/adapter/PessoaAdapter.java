@@ -78,6 +78,16 @@ public class PessoaAdapter extends BaseAdapter {
         TextView tvTel = view.findViewById(R.id.tvTel);
         tvTel.setText(pessoa.getTelefone());
 
+        TextView tvEndereco = view.findViewById(R.id.tvEndereco);
+        if(tvEndereco!= null){ //validar pq qdo o app é iniciado a orientação é retrato e só teoms este campo na orientação paisagem.
+            tvEndereco.setText(pessoa.getEndereco());
+        }
+
+        TextView tvSite = view.findViewById(R.id.tvSite);
+        if(tvSite != null){ //validar pq qdo o app é iniciado a orientação é retrato e só teoms este campo na orientação paisagem.
+            tvSite.setText(pessoa.getSite());
+        }
+
         ImageView ivFoto = view.findViewById(R.id.ivFoto);
         String caminhoFoto = pessoa.getCaminhoFoto();
 
