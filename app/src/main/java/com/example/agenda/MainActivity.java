@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.agenda.adapter.PessoaAdapter;
+import com.example.agenda.conversor.PessoaConverter;
 import com.example.agenda.dao.PessoaDAO;
 import com.example.agenda.modelo.Pessoa;
 
@@ -162,5 +165,28 @@ public class MainActivity extends AppCompatActivity {
         PessoaAdapter adapter = new PessoaAdapter(this, pessoas);
         listaPessoas.setAdapter(adapter);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_enviar_notas:
+                PessoaDAO dao = new PessoaDAO(this);
+                List<Pessoa> pessoas = dao.pesquisar();
+                dao.close();
+
+                PessoaConverter conversor = new PessoaConverter();
+                String json = conversor.converteParaJSON(pessoas);
+
+                Toast.makeText(this, json, Toast.LENGTH_LONG).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
