@@ -1,4 +1,2 @@
-# android2
-Projeto do Curso da Alura "Android II: Integração com apps e recursos do device"
-
-Observação: O código referente ao uso da câmera precisou ser atualizado, porque a versão apresentada no curso não funciona a partir do Android 7.
+# Curso Android 3
+Projeto do Curso da Alura "Android III: Aprimore sua app com Fragments, Google Maps e GPS"
