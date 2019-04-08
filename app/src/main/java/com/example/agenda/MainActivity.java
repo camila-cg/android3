@@ -14,10 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.agenda.adapter.PessoaAdapter;
-import com.example.agenda.conversor.PessoaConverter;
 import com.example.agenda.dao.PessoaDAO;
 import com.example.agenda.modelo.Pessoa;
 
@@ -177,16 +175,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_enviar_notas:
-                PessoaDAO dao = new PessoaDAO(this);
-                List<Pessoa> pessoas = dao.pesquisar();
-                dao.close();
-
-                PessoaConverter conversor = new PessoaConverter();
-                String json = conversor.converteParaJSON(pessoas);
-                WebClient client = new WebClient();
-                String resposta = client.post(json);
-
-                Toast.makeText(this, resposta, Toast.LENGTH_LONG).show();
+                new EnviaPessoaTask(this).execute();
                 break;
         }
         return super.onOptionsItemSelected(item);
