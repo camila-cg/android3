@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
+import com.example.agenda.R;
 import com.example.agenda.dao.PessoaDAO;
 
 public class SMSReceiver extends BroadcastReceiver {
