@@ -177,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_enviar_notas:
                 new EnviaPessoaTask(this).execute();
                 break;
+            case R.id.menu_baixar_provas:
+                Intent intent = new Intent(this, ProvasActivity.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
